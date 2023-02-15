@@ -14,7 +14,9 @@ class Books extends React.Component{
         return(
             <div>
                 {this.props.books.booksList.map(book =>
-                    <li>{book.author} - "{book.title}"</li>)}
+                    <li key={book.id}>
+                        {book.author} - "{book.title}"
+                    </li>)}
             </div>
         );
     }
