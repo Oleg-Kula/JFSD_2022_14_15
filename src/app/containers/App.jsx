@@ -10,7 +10,7 @@ import IntlProvider from 'components/IntlProvider';
 import Header from 'components/Header';
 import PageInitial from 'pageProviders/Initial';
 import PageLogin from 'pageProviders/Login';
-import PageBooks from 'pages/Books';
+import PageBooks from 'pageProviders/Books';
 import * as PAGES from 'constants/pages';
 import {
   fetchUser,
