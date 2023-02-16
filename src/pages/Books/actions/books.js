@@ -27,7 +27,7 @@ const getBooks = () => new Promise((onSuccess) => {
 //функция getBooks для запросов на сервер
 /**
  function getBooks() {
-    return fetch('http://localhost8080/api/books')
+    return fetch('http://localhost:8080/api/books')
         .then(res => res.json());
 }
  **/
