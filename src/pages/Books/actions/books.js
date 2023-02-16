@@ -33,10 +33,10 @@ const getBooks = () => new Promise((onSuccess) => {
  **/
 
 const fetchBooks = (dispatch) => {
-    dispatch(requestBooks()); // Повідомляю стору, що роблю запит користувачів
-    return getBooks() // Викликаю функцію запиту студентів
-        .then(books => dispatch(receiveBooks(books))) // Успіх
-        .catch(() => dispatch(errorReceiveBooks())); // Помилка
+    dispatch(requestBooks());
+    return getBooks()
+        .then(books => dispatch(receiveBooks(books)))
+        .catch(() => dispatch(errorReceiveBooks()));
 };
 export default {
     fetchBooks,
