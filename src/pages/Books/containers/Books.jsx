@@ -11,6 +11,18 @@ class Books extends React.Component {
         booksActions.fetchBooks(this.props.dispatch);
     }
 
+    handleMouseEnter(){
+        this.setState({
+            buttonsShow: true,
+        })
+    }
+
+    handleMouseLeave(){
+        this.setState({
+            buttonsShow: false,
+        })
+    }
+
     render() {
         console.log(this.props);
         return (
@@ -24,8 +36,21 @@ class Books extends React.Component {
                     Back
                 </Link>
                 <br/><br/>
+                {this.props.books.isError &&
+                <div>
+                    Something went wrong :(
+                </div>
+                }
+                {this.props.books.isLoading &&
+                <div>
+                    Loading...
+                </div>
+                }
                 {this.props.books.booksList.map(book =>
-                    <li key={book.id}>
+                    <li key={book.id}
+                        onMouseEnter={() => this.handleMouseEnter}
+                        onMouseLeave={() => this.handleMouseLeave}
+                    >
                         {book.author} - "{book.title}"
                     </li>)}
             </div>

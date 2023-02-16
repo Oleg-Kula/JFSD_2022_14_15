@@ -11,19 +11,26 @@ const errorReceiveBooks = () => ({
     type: 'ERROR_RECEIVE_BOOKS'
 });
 
-const getBooksI = (booksCount) => new Promise((onSuccess) => {
+//функция getBooks для имитации ответа от сервера
+const getBooks = () => new Promise((onSuccess) => {
     setTimeout(
         () => onSuccess(Array
-            .from(new Array(booksCount).keys())
-            .map(index => ({ name: `Book ${index}`}))),
+            .from(new Array(10).keys())
+            .map(index => ({
+                id: `${index}`,
+                title: `Book ${index}`,
+                author: `Author ${index}`,
+            }))),
         1000
     );
 });
-
-function getBooks() {
+//функция getBooks для запросов на сервер
+/**
+ function getBooks() {
     return fetch('http://localhost:8080/api/books')
         .then(res => res.json());
 }
+ **/
 
 const fetchBooks = (dispatch) => {
     dispatch(requestBooks()); // Повідомляю стору, що роблю запит користувачів
