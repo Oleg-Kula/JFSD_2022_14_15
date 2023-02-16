@@ -46,5 +46,7 @@ class Books extends React.Component {
 const mapReduxStateToProps = reduxState => ({
     ...reduxState,
 });
+
 const mapDispatchToProps = dispatch => ({dispatch});
+
 export default connect(mapReduxStateToProps, mapDispatchToProps)(Books);

@@ -32,12 +32,21 @@ const getBooks = () => new Promise((onSuccess) => {
 }
  **/
 
+const deleteBook = (bookId) => (dispatch) => {
+  fetch('http://localhost:8080/api/books/' + bookId, {
+      method: 'DELETE',
+  });
+  return fetchBooks(dispatch);
+};
+
 const fetchBooks = (dispatch) => {
     dispatch(requestBooks());
     return getBooks()
         .then(books => dispatch(receiveBooks(books)))
         .catch(() => dispatch(errorReceiveBooks()));
 };
+
 export default {
     fetchBooks,
+    deleteBook,
 };

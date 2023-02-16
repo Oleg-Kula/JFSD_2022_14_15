@@ -32,6 +32,7 @@ export default (state = initialState, action) => {
                 booksList: books,
             };
         }
+
         default: return state;
     }
 };

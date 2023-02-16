@@ -1,4 +1,6 @@
 import React from "react";
+import {connect} from "react-redux";
+import booksActions from '../actions/books';
 
 class Book extends React.Component{
     constructor(props) {
@@ -20,6 +22,10 @@ class Book extends React.Component{
         })
     }
 
+    handleClick(bookId){
+        booksActions.deleteBook(bookId)(this.props.dispatch);
+    }
+
     render() {
         return(
             <div
@@ -28,10 +34,13 @@ class Book extends React.Component{
             >
                 {this.props.author} - "{this.props.title}"
                 {this.state.mouseOnBook ? <button>Update</button> : null}
-                {this.state.mouseOnBook ? <button>Delete</button> : null}
+                {this.state.mouseOnBook ?
+                    <button onClick={() => this.handleClick(this.props.id)}>Delete</button> : null}
             </div>
         );
     }
 }
 
-export default Book;
+const mapDispatchToProps = dispatch => ({dispatch});
+
+export default connect(mapDispatchToProps)(Book);
