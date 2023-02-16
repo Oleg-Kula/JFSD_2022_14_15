@@ -3,20 +3,13 @@ import {connect} from 'react-redux';
 import booksActions from '../actions/books';
 import * as PAGES from "../../../constants/pages";
 import Link from "../../../components/Link";
+import Book from "../components/Book"
 
 
 class Books extends React.Component {
 
     componentDidMount() {
         booksActions.fetchBooks(this.props.dispatch);
-    }
-
-   handleMouseEnter() {
-
-    }
-
-    handleMouseLeave(){
-
     }
 
     render() {
@@ -42,12 +35,9 @@ class Books extends React.Component {
                 </div>
                 }
                 {this.props.books.booksList.map(book =>
-                    <li key={book.id}
-                        onMouseEnter={this.handleMouseEnter}
-                        onMouseLeave={this.handleMouseLeave}
-                    >
-                        {book.author} - "{book.title}"
-                    </li>)}
+                    <div>
+                        <Book id={book.id} title={book.title} author={book.author}/>
+                    </div>)}
             </div>
         );
     }
