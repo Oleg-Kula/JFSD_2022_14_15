@@ -12,6 +12,7 @@ const errorReceiveBooks = () => ({
 });
 
 //функция getBooks для имитации ответа от сервера
+/**
 const getBooks = () => new Promise((onSuccess) => {
     setTimeout(
         () => onSuccess(Array
@@ -24,19 +25,20 @@ const getBooks = () => new Promise((onSuccess) => {
         1000
     );
 });
+ **/
+
 //функция getBooks для запросов на сервер
-/**
  function getBooks() {
     return fetch('http://localhost:8080/api/books')
         .then(res => res.json());
 }
- **/
+
 
 const deleteBook = (bookId) => (dispatch) => {
-  fetch('http://localhost:8080/api/books/' + bookId, {
+  return  fetch('http://localhost:8080/api/books/' + bookId, {
       method: 'DELETE',
-  });
-  return fetchBooks(dispatch);
+  })
+      .then(() => fetchBooks(dispatch)) ;
 };
 
 const fetchBooks = (dispatch) => {
