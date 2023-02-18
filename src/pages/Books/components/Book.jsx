@@ -23,7 +23,7 @@ class Book extends React.Component{
     }
 
     handleClick(bookId){
-        booksActions.deleteBook(bookId)(this.props.dispatch);
+        booksActions.fetchDeleteBook(bookId)(this.props.dispatch);
     }
 
     render() {

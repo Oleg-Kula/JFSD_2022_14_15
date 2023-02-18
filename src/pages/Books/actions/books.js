@@ -11,12 +11,16 @@ const errorReceiveBooks = () => ({
     type: 'ERROR_RECEIVE_BOOKS'
 });
 
+const deleteBook= (bookId) => ({
+   type: 'DELETE_BOOK',
+   payload: bookId,
+});
+
 //функция getBooks для имитации ответа от сервера
-/**
 const getBooks = () => new Promise((onSuccess) => {
     setTimeout(
         () => onSuccess(Array
-            .from(new Array(10).keys())
+            .from(new Array(4).keys())
             .map(index => ({
                 id: `${index}`,
                 title: `Book ${index}`,
@@ -25,20 +29,23 @@ const getBooks = () => new Promise((onSuccess) => {
         1000
     );
 });
- **/
 
-//функция getBooks для запросов на сервер
- function getBooks() {
+//функция getBooks для запросов на BE
+/**
+const getBooks = () => {
     return fetch('http://localhost:8080/api/books')
         .then(res => res.json());
-}
+};
+ **/
 
-
-const deleteBook = (bookId) => (dispatch) => {
+//функция deleteBook для запросов на BE
+//также работает как заглушка(через catch), если BE не подключен
+const fetchDeleteBook = (bookId) => (dispatch) => {
   return  fetch('http://localhost:8080/api/books/' + bookId, {
       method: 'DELETE',
   })
-      .then(() => fetchBooks(dispatch)) ;
+      .then(() => dispatch(deleteBook(bookId)))
+      .catch(() => dispatch(deleteBook(bookId)));
 };
 
 const fetchBooks = (dispatch) => {
@@ -50,5 +57,5 @@ const fetchBooks = (dispatch) => {
 
 export default {
     fetchBooks,
-    deleteBook,
+    fetchDeleteBook,
 };
