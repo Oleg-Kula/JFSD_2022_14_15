@@ -62,6 +62,7 @@ const fetchDeleteBook = (bookId) => (dispatch) => {
       method: 'DELETE',
   })
       .then(() => dispatch(deleteBook(bookId)))
+      //.catch(() => dispatch(errorDeleteBook()))
       .catch(() => dispatch(deleteBook(bookId)));
 };
 
@@ -81,6 +82,7 @@ const fetchUpdateBook = (bookId, bookAuthor, bookTitle) => (dispatch) => {
 
     })
         .then(() => dispatch(updateBook(bookId, bookAuthor, bookTitle)))
+        //.catch(() => dispatch(errorUpdateBook()))
         .catch(() => dispatch(updateBook(bookId, bookAuthor, bookTitle)));
 }
 
