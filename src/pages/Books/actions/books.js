@@ -16,11 +16,21 @@ const deleteBook= (bookId) => ({
    payload: bookId,
 });
 
+const updateBook = (bookId, bookAuthor, bookTitle) => ({
+    type: 'UPDATE_BOOK',
+    payload: {
+        bookId: bookId,
+        bookAuthor: bookAuthor,
+        bookTitle: bookTitle
+    }
+})
+
 //функция getBooks для имитации ответа от сервера
+/**
 const getBooks = () => new Promise((onSuccess) => {
     setTimeout(
         () => onSuccess(Array
-            .from(new Array(4).keys())
+            .from(new Array(10).keys())
             .map(index => ({
                 id: `${index}`,
                 title: `Book ${index}`,
@@ -29,14 +39,13 @@ const getBooks = () => new Promise((onSuccess) => {
         1000
     );
 });
+ **/
 
 //функция getBooks для запросов на BE
-/**
 const getBooks = () => {
     return fetch('http://localhost:8080/api/books')
         .then(res => res.json());
 };
- **/
 
 //функция deleteBook для запросов на BE
 //также работает как заглушка(через catch), если BE не подключен
@@ -48,6 +57,22 @@ const fetchDeleteBook = (bookId) => (dispatch) => {
       .catch(() => dispatch(deleteBook(bookId)));
 };
 
+const fetchUpdateBook = (bookId, bookAuthor, bookTitle) => (dispatch) => {
+    return fetch('http://localhost:8080/api/books/' + bookId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            author: bookAuthor,
+            title: bookTitle
+        })
+
+    })
+        .then(() => dispatch(updateBook(bookId, bookAuthor, bookTitle)))
+        .catch(() => dispatch(updateBook(bookId, bookAuthor, bookTitle)));
+}
+
 const fetchBooks = (dispatch) => {
     dispatch(requestBooks());
     return getBooks()
@@ -58,4 +83,5 @@ const fetchBooks = (dispatch) => {
 export default {
     fetchBooks,
     fetchDeleteBook,
+    fetchUpdateBook
 };

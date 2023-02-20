@@ -11,10 +11,12 @@ import Header from 'components/Header';
 import PageInitial from 'pageProviders/Initial';
 import PageLogin from 'pageProviders/Login';
 import PageBooks from 'pageProviders/Books';
+import PageBooksForm from 'pageProviders/BooksForm';
 import * as PAGES from 'constants/pages';
 import {
   fetchUser,
 } from '../actions/user';
+import BooksForm from "../../pages/BooksForm";
 
 const App = () => {
   const [state, setState] = useState({
@@ -44,6 +46,9 @@ const App = () => {
               </Route>
               <Route path={`/${PAGES.BOOKS}`}>
                 <PageBooks />
+              </Route>
+              <Route path={`/${PAGES.BOOKS_FORM}`} render={(props) => <BooksForm {...props} /> }>
+                <PageBooksForm />
               </Route>
               <Redirect from="*" to={`/${PAGES.INITIAL}`} />
             </Switch>
