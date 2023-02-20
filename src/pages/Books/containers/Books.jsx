@@ -9,9 +9,7 @@ import Book from "../components/Book"
 class Books extends React.Component {
 
     componentDidMount() {
-        if(this.props.books.booksList.length === 0){
-            booksActions.fetchBooks(this.props.dispatch);
-        }
+        booksActions.fetchBooks(this.props.dispatch);
     }
 
     render() {
@@ -25,20 +23,35 @@ class Books extends React.Component {
                     }>
                     Back
                 </Link>
+
+                <Link to={location => ({
+                    ...location,
+                    pathname: `/${PAGES.BOOKS_FORM}`,
+                    state: {
+                        bookId: null,
+                        bookAuthor: null,
+                        bookTitle: null
+                    }
+                })
+                }>
+                    <button>Create</button>
+                </Link>
+
                 <br/><br/>
+
                 {this.props.books.isError &&
-                <div style={{
-                    color: "red",
-                }}>
-                    Something went wrong :(
-                </div>
+                    <div style={{
+                        color: "red",
+                    }}>
+                        Something went wrong :(
+                    </div>
                 }
                 {this.props.books.isLoading &&
-                <div style={{
-                    color: "blue",
-                }}>
-                    In progress, please wait...
-                </div>
+                    <div style={{
+                        color: "blue",
+                    }}>
+                        In progress, please wait...
+                    </div>
                 }
                 {this.props.books.booksList.map(book =>
                     <div>

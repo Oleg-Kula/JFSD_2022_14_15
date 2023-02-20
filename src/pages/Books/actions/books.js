@@ -11,6 +11,23 @@ const errorReceiveBooks = () => ({
     type: 'ERROR_RECEIVE_BOOKS'
 });
 
+const createBook = (bookId, bookAuthor, bookTitle) => ({
+    type: 'CREATE_BOOK',
+    payload: {
+        bookId: bookId,
+        bookAuthor: bookAuthor,
+        bookTitle: bookTitle,
+    }
+});
+
+const requestCreateBook = () => ({
+   type: 'REQUEST_CREATE_BOOK',
+});
+
+const errorCreateBook = () => ({
+   type: 'ERROR_CREATE_BOOK',
+});
+
 const deleteBook = (bookId) => ({
    type: 'DELETE_BOOK',
    payload: bookId,
@@ -42,6 +59,7 @@ const errorUpdateBook = () => ({
 });
 
 //функция getBooks для имитации ответа от сервера
+/**
 const getBooks = () => new Promise((onSuccess) => {
     setTimeout(
         () => onSuccess(Array
@@ -54,16 +72,36 @@ const getBooks = () => new Promise((onSuccess) => {
         1000
     );
 });
+ **/
 
 //функция getBooks для запросов на BE
-/**
 const getBooks = () => {
     return fetch('http://localhost:8080/api/books')
         .then(res => res.json());
 };
- **/
 
-//функция deleteBook для запросов на BE
+//функция создания книги для запросов на BE
+//также работает как заглушка(через catch), если BE не подключен
+const fetchCreateBook = (bookAuthor, bookTitle) => (dispatch) =>{
+    dispatch(requestCreateBook());
+    return fetch('http://localhost:8080/api/books', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            author: bookAuthor,
+            title: bookTitle
+        })
+
+    })
+        .then(res => res.json())
+        .then((bookId) => dispatch(createBook(bookId, bookAuthor, bookTitle)))
+        .catch(() => dispatch(errorCreateBook()));
+        //.catch(() => dispatch(createBook(1001, bookAuthor, bookTitle)));
+}
+
+//функция удаления книги для запросов на BE
 //также работает как заглушка(через catch), если BE не подключен
 const fetchDeleteBook = (bookId) => (dispatch) => {
     dispatch(requestDeleteBook());
@@ -71,11 +109,11 @@ const fetchDeleteBook = (bookId) => (dispatch) => {
       method: 'DELETE',
   })
       .then(() => dispatch(deleteBook(bookId)))
-      //.catch(() => dispatch(errorDeleteBook()))
-      .catch(() => dispatch(deleteBook(bookId)));
+      .catch(() => dispatch(errorDeleteBook()))
+      //.catch(() => dispatch(deleteBook(bookId)));
 };
 
-//функция updateBook для запросов на BE
+//функция апдейта книги для запросов на BE
 //также работает как заглушка(через catch), если BE не подключен
 const fetchUpdateBook = (bookId, bookAuthor, bookTitle) => (dispatch) => {
     dispatch(requestUpdateBook());
@@ -86,13 +124,13 @@ const fetchUpdateBook = (bookId, bookAuthor, bookTitle) => (dispatch) => {
         },
         body: JSON.stringify({
             author: bookAuthor,
-            title: bookTitle,
+            title: bookTitle
         })
 
     })
         .then(() => dispatch(updateBook(bookId, bookAuthor, bookTitle)))
-        //.catch(() => dispatch(errorUpdateBook()))
-        .catch(() => dispatch(updateBook(bookId, bookAuthor, bookTitle)));
+        .catch(() => dispatch(errorUpdateBook()));
+        //.catch(() => dispatch(updateBook(bookId, bookAuthor, bookTitle)));
 }
 
 const fetchBooks = (dispatch) => {
@@ -105,5 +143,6 @@ const fetchBooks = (dispatch) => {
 export default {
     fetchBooks,
     fetchDeleteBook,
-    fetchUpdateBook
+    fetchUpdateBook,
+    fetchCreateBook
 };

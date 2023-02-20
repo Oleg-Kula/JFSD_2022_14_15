@@ -60,6 +60,40 @@ export default (state = initialState, action) => {
             }
         }
 
+        case 'CREATE_BOOK': {
+            const newBook = {
+                id: action.payload.bookId,
+                author: action.payload.bookAuthor,
+                title: action.payload.bookTitle,
+            }
+
+            const updatedBooks = state.booksList;
+            updatedBooks.push(newBook);
+
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                booksList: updatedBooks,
+            }
+        }
+
+        case 'REQUEST_CREATE_BOOK': {
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+            }
+        }
+
+        case 'ERROR_CREATE_BOOK': {
+            return {
+                ...state,
+                isError: true,
+                isLoading: false,
+            }
+        }
+
         case 'UPDATE_BOOK': {
             const updatedBookId = action.payload.bookId;
             const updatedBookAuthor = action.payload.bookAuthor;

@@ -16,7 +16,12 @@ class BooksForm extends React.Component{
 
     handleSaveButtonClick(bookId){
         const { bookAuthor, bookTitle } = this.state;
-        booksActions.fetchUpdateBook(bookId, bookAuthor, bookTitle)(this.props.dispatch);
+        if(bookId === null){
+            booksActions.fetchCreateBook(bookAuthor, bookTitle)(this.props.dispatch);
+        } else {
+            booksActions.fetchUpdateBook(bookId, bookAuthor, bookTitle)(this.props.dispatch);
+        }
+
     }
 
     handleAuthorChange = (event) => {
