@@ -77,7 +77,6 @@ const fetchUpdateBook = (bookId, bookAuthor, bookTitle) => (dispatch) => {
         body: JSON.stringify({
             author: bookAuthor,
             title: bookTitle,
-            genreId: 1,
         })
 
     })
