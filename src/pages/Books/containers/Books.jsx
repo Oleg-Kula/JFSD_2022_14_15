@@ -9,7 +9,9 @@ import Book from "../components/Book"
 class Books extends React.Component {
 
     componentDidMount() {
-        booksActions.fetchBooks(this.props.dispatch);
+        if(this.props.books.booksList.length === 0){
+            booksActions.fetchBooks(this.props.dispatch);
+        }
     }
 
     render() {

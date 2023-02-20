@@ -38,8 +38,16 @@ export default (state = initialState, action) => {
             const updatedBooks = state.booksList.filter(book => book.id !== bookId);
             return {
                 ...state,
-                booksList: updatedBooks
+                isError: false,
+                booksList: updatedBooks,
             };
+        }
+
+        case 'ERROR_DELETE_BOOK': {
+            return {
+                ...state,
+                isError: true,
+            }
         }
 
         case 'UPDATE_BOOK': {
@@ -58,7 +66,14 @@ export default (state = initialState, action) => {
             });
             return {
                 ...state,
+                isError: false,
                 booksList: updatedBooks,
+            }
+        }
+        case 'ERROR_UPDATE_BOOK': {
+            return {
+                ...state,
+                isError: true,
             }
         }
 
