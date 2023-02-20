@@ -24,6 +24,8 @@ class Books extends React.Component {
                     Back
                 </Link>
 
+                <br/><br/>
+
                 <Link to={location => ({
                     ...location,
                     pathname: `/${PAGES.BOOKS_FORM}`,
@@ -34,7 +36,7 @@ class Books extends React.Component {
                     }
                 })
                 }>
-                    <button>Create</button>
+                    <button>+Create</button>
                 </Link>
 
                 <br/><br/>
