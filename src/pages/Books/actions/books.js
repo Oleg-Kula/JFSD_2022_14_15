@@ -16,6 +16,10 @@ const deleteBook = (bookId) => ({
    payload: bookId,
 });
 
+const requestDeleteBook = () => ({
+   type: 'REQUEST_DELETE_BOOK'
+});
+
 const errorDeleteBook = () => ({
    type: 'ERROR_DELETE_BOOK',
 });
@@ -27,6 +31,10 @@ const updateBook = (bookId, bookAuthor, bookTitle) => ({
         bookAuthor: bookAuthor,
         bookTitle: bookTitle
     }
+});
+
+const requestUpdateBook = () => ({
+   type: 'REQUEST_UPDATE_BOOK',
 });
 
 const errorUpdateBook = () => ({
@@ -58,6 +66,7 @@ const getBooks = () => {
 //функция deleteBook для запросов на BE
 //также работает как заглушка(через catch), если BE не подключен
 const fetchDeleteBook = (bookId) => (dispatch) => {
+    dispatch(requestDeleteBook());
   return  fetch('http://localhost:8080/api/books/' + bookId, {
       method: 'DELETE',
   })
@@ -69,6 +78,7 @@ const fetchDeleteBook = (bookId) => (dispatch) => {
 //функция updateBook для запросов на BE
 //также работает как заглушка(через catch), если BE не подключен
 const fetchUpdateBook = (bookId, bookAuthor, bookTitle) => (dispatch) => {
+    dispatch(requestUpdateBook());
     return fetch('http://localhost:8080/api/books/' + bookId, {
         method: 'PUT',
         headers: {

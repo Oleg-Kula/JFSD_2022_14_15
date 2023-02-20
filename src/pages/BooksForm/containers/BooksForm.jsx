@@ -44,7 +44,17 @@ class BooksForm extends React.Component{
                     <div style={{
                         flexDirection: "row"
                     }}>
-                        <button onClick={() => this.handleSaveButtonClick(bookId)}>Save</button>
+                        <Link to={location => ({
+                            ...location,
+                            pathname: `/${PAGES.BOOKS}`
+                        })
+                        }>
+                            <button onClick={
+                                () => this.handleSaveButtonClick(bookId)
+                            }>
+                                Save
+                            </button>
+                        </Link>
                         <Link to={location => ({
                                 ...location,
                                 pathname: `/${PAGES.BOOKS}`

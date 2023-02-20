@@ -27,13 +27,17 @@ class Books extends React.Component {
                 </Link>
                 <br/><br/>
                 {this.props.books.isError &&
-                <div>
+                <div style={{
+                    color: "red",
+                }}>
                     Something went wrong :(
                 </div>
                 }
                 {this.props.books.isLoading &&
-                <div>
-                    Loading...
+                <div style={{
+                    color: "blue",
+                }}>
+                    In progress, please wait...
                 </div>
                 }
                 {this.props.books.booksList.map(book =>

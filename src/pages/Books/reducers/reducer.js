@@ -39,14 +39,24 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isError: false,
+                isLoading: false,
                 booksList: updatedBooks,
             };
+        }
+
+        case 'REQUEST_DELETE_BOOK': {
+            return {
+                ...state,
+                isError: false,
+                isLoading: true,
+            }
         }
 
         case 'ERROR_DELETE_BOOK': {
             return {
                 ...state,
                 isError: true,
+                isLoading: false,
             }
         }
 
@@ -67,13 +77,24 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isError: false,
+                isLoading: false,
                 booksList: updatedBooks,
             }
         }
+
+        case 'REQUEST_UPDATE_BOOK': {
+            return {
+                ...state,
+                isError: false,
+                isLoading: true,
+            }
+        }
+
         case 'ERROR_UPDATE_BOOK': {
             return {
                 ...state,
                 isError: true,
+                isLoading: false,
             }
         }
 
